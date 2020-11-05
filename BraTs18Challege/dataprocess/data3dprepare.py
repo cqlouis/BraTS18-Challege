@@ -1,30 +1,16 @@
 from __future__ import print_function, division
-import numpy as np
-import SimpleITK as sitk
-from dataprocess.utils import file_name_path
+import numpy as np; import SimpleITK as sitk; from dataprocess.utils import file_name_path
 
-flair_name = "_flair.nii.gz"
-t1_name = "_t1.nii.gz"
-t1ce_name = "_t1ce.nii.gz"
-t2_name = "_t2.nii.gz"
-mask_name = "_seg.nii.gz"
-
+flair_name = "_flair.nii.gz"; t1_name = "_t1.nii.gz"; t1ce_name = "_t1ce.nii.gz"; t2_name = "_t2.nii.gz"; mask_name = "_seg.nii.gz"
 
 def subimage_generator(image, mask, patch_block_size, numberxy, numberz):
-    """
-    generate the sub images and masks with patch_block_size
-    :param image:
-    :param patch_block_size:
-    :param stride:
-    :return:
-    """
-    width = np.shape(image)[1]
+    width = np.shape(image)[1]    # image 为原始图像
     height = np.shape(image)[2]
     imagez = np.shape(image)[0]
-    block_width = np.array(patch_block_size)[1]
+    block_width = np.array(patch_block_size)[1]  
     block_height = np.array(patch_block_size)[2]
     blockz = np.array(patch_block_size)[0]
-    stridewidth = (width - block_width) // numberxy
+    stridewidth = (width - block_width) // numberxy  
     strideheight = (height - block_height) // numberxy
     stridez = (imagez - blockz) // numberz
     # step 1:if stridez is bigger 1,return  numberxy * numberxy * numberz samples
